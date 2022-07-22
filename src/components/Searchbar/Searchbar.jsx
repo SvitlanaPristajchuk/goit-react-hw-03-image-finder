@@ -6,11 +6,6 @@
     const handleSubmit = (values, actions) => {
       onSubmit(values)
       actions.resetForm();
-
-
-
-      
-
     }
     return (
       <Formik
@@ -19,8 +14,6 @@
           <Form>
             <Field type="text" name="search" />
             <button type="submit" desebled={isSubmiting}>
-
-
               Submit
             </button>
           </Form>

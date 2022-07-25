@@ -4,17 +4,30 @@ import { Component } from "react";
 import axios from "axios";
 import Searchbar from "./components/Searchbar/Searchbar";
 import { Formik } from "formik";
+import * as API from ".helpers/api"
 
-//axios.defaults.baseURL = `https://pixabay.com/27144211-7692123c331450892536fcf0f/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12`;
+
+
 
 
 
 
 class App extends Component {
+  state = {
+    images: [],
+    isLoading: false 
+    
+   }
+ async getImages(values) {
+const images = await API.getImages(values);
+console.log(images);
+
+  }
   render() {
+    const { isLoading } = this.state
     return (
       <>
-      <Searchbar onSubmit={(console.log)}/>
+      <Searchbar onSubmit={this.getImages}/>
       </>
     );
   }

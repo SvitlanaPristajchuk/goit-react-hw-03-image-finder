@@ -1,23 +1,32 @@
 
   import React from 'react';
   import { Formik, Form, Field, ErrorMessage } from 'formik';
+  import s from "./Searchbar.module.css"
   
   const Searchbar = ({onSubmit, isSubmiting}) => {
     const handleSubmit = (values, actions) => {
       onSubmit(values)
-      actions.resetForm();
+      actions.hendleReset();
     }
     return (
       <Formik
-        initialValues={{ search: "" }}
-        onSubmit={handleSubmit}>
-          <Form>
-            <Field type="text" name="search" />
-            <button type="submit" desebled={isSubmiting}>
-              Submit
-            </button>
-          </Form>
-      </Formik>
+       initialValues={{}}
+       onSubmit={(values, actions) => {console.log(values);
+       actions.hendleReset()}}>
+      <Form  onSubmit={handleSubmit}>
+      <label className={s.searchbar}>
+     <button type="submit" className={s.searchFormButton}>
+      <span>Search</span>
+      </button>
+       <Field
+        type="text"  name="name" id="name" placeholder="Search images and photos"
+          autoComplete="off"
+          autoFocus/>
+      
+
+         </label>
+      </Form>
+    </Formik>
 
     )
   }

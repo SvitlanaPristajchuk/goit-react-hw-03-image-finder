@@ -4,30 +4,42 @@ import { Component } from "react";
 import axios from "axios";
 import Searchbar from "./components/Searchbar/Searchbar";
 import { Formik } from "formik";
-import * as API from ".helpers/api"
-
-
-
-
+import * as API from "./helpers/api"
+import ImageGallery from "./components/ImageGallery/ImageGallery";
 
 
 
 class App extends Component {
   state = {
     images: [],
-    isLoading: false 
-    
+    isLoading: false,
+    error: null
    }
- async getImages(values) {
-const images = await API.getImages(values);
-console.log(images);
 
-  }
+   async componentDidMount() {
+     try {
+       this.setState ({ isLoading: true })
+      const images = await API.getImages();
+      this.setState ({ images, isLoading: false })
+
+     } catch (error) {
+       this.setState({ error:true, isLoading: false})
+
+
+     }
+     const images = await API.getImages(images);
+     this.setState ({ images })
+   }
+
   render() {
-    const { isLoading } = this.state
+    const { isLoading, images, error } = this.state
     return (
       <>
+      {error && ( <p> Does not exist </p> ) }
       <Searchbar onSubmit={this.getImages}/>
+      { isLoading ? 'LOADING' : <ImageGallery images={images} /> }
+
+      
       </>
     );
   }

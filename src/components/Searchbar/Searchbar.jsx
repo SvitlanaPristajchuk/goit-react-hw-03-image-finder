@@ -15,7 +15,7 @@
        actions.hendleReset()}}>
       <Form  onSubmit={handleSubmit}>
       <label className={s.searchbar}>
-     <button type="submit" className={s.searchFormButton}>
+     <button type="submit" className={s.button}>
       <span>Search</span>
       </button>
        <Field

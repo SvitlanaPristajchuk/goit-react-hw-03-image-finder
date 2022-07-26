@@ -4,7 +4,7 @@ import { Component } from "react";
 import axios from "axios";
 import Searchbar from "./components/Searchbar/Searchbar";
 import { Formik } from "formik";
-import * as API from "./helpers/api"
+import * as API from "./services/api"
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 
 
@@ -19,7 +19,7 @@ class App extends Component {
    async componentDidMount() {
      try {
        this.setState ({ isLoading: true })
-      const images = await API.getImages();
+      const images = await API.getImages({ images });
       this.setState ({ images, isLoading: false })
 
      } catch (error) {
@@ -27,8 +27,7 @@ class App extends Component {
 
 
      }
-     const images = await API.getImages(images);
-     this.setState ({ images })
+   
    }
 
   render() {

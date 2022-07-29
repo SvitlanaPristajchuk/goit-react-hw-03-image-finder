@@ -13,36 +13,31 @@ class App extends Component {
   state = {
     images: [],
     isLoading: false,
-    error: null
+    error: null, 
+    searchQuery: '',
+    page: 1,
    }
-
-   async componentDidMount() {
-     try {
-       this.setState ({ isLoading: true })
-      const images = await API.getImages({ images });
-      this.setState ({ images, isLoading: false })
-
-     } catch (error) {
-       this.setState({ error:true, isLoading: false})
-
-
-     }
-   
-   }
-
+async componentDidMount (prevProps, prevState) {
+  const data = API.getImages ('', 1)
+  .then ((res) => console.log(res))
+}
   render() {
     const { isLoading, images, error } = this.state
     return (
       <>
-      {error && ( <p> Does not exist </p> ) }
-      <Searchbar onSubmit={this.getImages}/>
-      { isLoading ? 'LOADING' : <ImageGallery images={images} /> }
+      {error &&  <p> Does not exist </p>  }
+      <Searchbar onSubmit={this.getImages} />
+      {isLoading ? ('LODING')
+      : ( <ImageGallery images={images} />  )}
+     
+      
 
       
       </>
     );
   }
 }
+
 
 
 
